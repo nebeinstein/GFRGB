@@ -71,7 +71,7 @@ class GFRGBGUI:
         self.fileListBox = Listbox(self.maineframe)  
         self.menuBar = Menu(self.root) 
         self.fileMenu = Menu(self.menuBar)
-        self.menuBar.add_cascade(menu=self.fileMenu, label='file')
+        self.menuBar.add_cascade(menu=self.fileMenu, label='File')
         
         self.xEntry.grid(column=2, row=1)
         self.yEntry.grid(column=2, row=2)
@@ -81,9 +81,9 @@ class GFRGBGUI:
         self.nextButt.grid(column=8, row=2)
         self.imageCanvas.grid(column=1, row=0, columnspan=8) 
         self.fileListBox.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
-        self.fileMenu.add_command(label='open')
-        self.fileMenu.add_command(label='save')
-        self.fileMenu.add_command(label='quit')
+        self.fileMenu.add_command(label='Open')
+        self.fileMenu.add_command(label='Save')
+        self.fileMenu.add_command(label='Quit')
         
         self.root.config(menu=self.menuBar)
         
