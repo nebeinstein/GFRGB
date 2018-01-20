@@ -124,8 +124,9 @@ class GFRGBGUI:
 
     def menu_item_open(self):
         """Loads in all the files in the given directory."""
-        print("OPEN menu item clicked")
         filepath = filedialog.askdirectory()
+        if(filepath==''):
+            return
         the_list_of_files = ldr.get_files_in(filepath)
         self.updateFileList(the_list_of_files)
 
@@ -139,7 +140,6 @@ class GFRGBGUI:
         self.xEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.yEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.radiusEntry.bind('<Return>', lambda x: self.updateOnClick(x))
-        self.fileListBox.bind('<Button-1>', lambda x: self.menu_item_open(x))
 
 
         
