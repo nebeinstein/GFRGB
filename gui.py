@@ -82,7 +82,7 @@ class GFRGBGUI:
         self.nextButt.grid(column=8, row=2)
         self.imageCanvas.grid(column=1, row=0, columnspan=8) 
         self.fileListBox.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
-        self.fileMenu.add_command(label='Open')
+        self.fileMenu.add_command(label='Open', command=self.menu_item_open)
         self.fileMenu.add_command(label='Save')
         self.fileMenu.add_command(label='Quit')
         
@@ -122,7 +122,7 @@ class GFRGBGUI:
         """ make it go"""
         self.root.mainloop()
 
-    def menu_item_open(self,a):
+    def menu_item_open(self):
         """Loads in all the files in the given directory."""
         print("OPEN menu item clicked")
         filepath = filedialog.askopenfilename()
