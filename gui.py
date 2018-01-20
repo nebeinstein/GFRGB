@@ -33,11 +33,11 @@ class GFRGBGUI:
         self.fileMenu = Menu(self.win)
         self.win['menu'] = self.fileMenu
         
-        ttk.Label(self.maineframe, text='X:').grid(column=0, row=1)
-        ttk.Label(self.maineframe, text='Y:').grid(column=0, row=2)
-        ttk.Label(self.maineframe, text='Radius:').grid(column=2, row=1)
-        ttk.Label(self.maineframe, text='Arc Length:').grid(column=2, row=2)
-        ttk.Label(self.maineframe, text='Arc Phase:').grid(column=4, row=2)
+        ttk.Label(self.maineframe, text='X:').grid(column=1, row=1)
+        ttk.Label(self.maineframe, text='Y:').grid(column=1, row=2)
+        ttk.Label(self.maineframe, text='Radius:').grid(column=3, row=1)
+        ttk.Label(self.maineframe, text='Arc Length:').grid(column=3, row=2)
+        ttk.Label(self.maineframe, text='Arc Phase:').grid(column=5, row=2)
         
         self.populateWidgets()
         self.makeReticle()
@@ -50,14 +50,6 @@ class GFRGBGUI:
         self.horzLine = self.imageCanvas.create_line(340,350,360,350, fill='red')
         self.vertLine = self.imageCanvas.create_line(350,360,350,340, fill='red')
         self.reticleArc = self.imageCanvas.create_arc(330,330, 370,370, outline='red', style='arc')
-        
-        self.xEntry.grid(column=1, row=1)
-        self.yEntry.grid(column=1, row=2)
-        self.radiusEntry.grid(column=3, row=1)
-        self.arcLengthEntry.grid(column=3, row=2)
-        self.arcPhaseEntry.grid(column=5, row=2)
-        self.nextButt.grid(column=7, row=2)
-        self.imageCanvas.grid(row=0, column=0, columnspan=8)    
         
     def populateWidgets(self):
         """ Create and add the widgets to the window. """
@@ -78,6 +70,16 @@ class GFRGBGUI:
         self.nextButt = ttk.Button(self.maineframe, text='Next')
         self.imageCanvas = Canvas(self.maineframe, width=700, height=700)
         self.image = self.imageCanvas.create_image((350,350), image=self.screamjov)   
+        self.fileListBox = Listbox(self.maineframe)   
+        
+        self.xEntry.grid(column=2, row=1)
+        self.yEntry.grid(column=2, row=2)
+        self.radiusEntry.grid(column=4, row=1)
+        self.arcLengthEntry.grid(column=4, row=2)
+        self.arcPhaseEntry.grid(column=6, row=2)
+        self.nextButt.grid(column=8, row=2)
+        self.imageCanvas.grid(column=1, row=0, columnspan=8) 
+        self.fileListBox.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
     
     def updateOnClick(self, a):
         """ Update the position of the reticle on a click on the image. """
