@@ -29,9 +29,7 @@ class GFRGBGUI:
         self.maineframe.rowconfigure(1, weight=1)
         self.maineframe.rowconfigure(2, weight=1)
         
-        self.win = Toplevel(self.root)
-        self.fileMenu = Menu(self.win)
-        self.win['menu'] = self.fileMenu
+        #self.win = Toplevel(self.root)
         
         ttk.Label(self.maineframe, text='X:').grid(column=1, row=1)
         ttk.Label(self.maineframe, text='Y:').grid(column=1, row=2)
@@ -70,7 +68,10 @@ class GFRGBGUI:
         self.nextButt = ttk.Button(self.maineframe, text='Next')
         self.imageCanvas = Canvas(self.maineframe, width=700, height=700)
         self.image = self.imageCanvas.create_image((350,350), image=self.screamjov)   
-        self.fileListBox = Listbox(self.maineframe)   
+        self.fileListBox = Listbox(self.maineframe)  
+        self.menuBar = Menu(self.root) 
+        self.fileMenu = Menu(self.menuBar)
+        self.menuBar.add_cascade(menu=self.fileMenu, label='file')
         
         self.xEntry.grid(column=2, row=1)
         self.yEntry.grid(column=2, row=2)
@@ -80,6 +81,11 @@ class GFRGBGUI:
         self.nextButt.grid(column=8, row=2)
         self.imageCanvas.grid(column=1, row=0, columnspan=8) 
         self.fileListBox.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
+        self.fileMenu.add_command(label='open')
+        self.fileMenu.add_command(label='save')
+        self.fileMenu.add_command(label='quit')
+        
+        self.root.config(menu=self.menuBar)
     
     def updateOnClick(self, a):
         """ Update the position of the reticle on a click on the image. """
