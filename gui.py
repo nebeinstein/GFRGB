@@ -86,6 +86,12 @@ class GFRGBGUI:
         self.fileMenu.add_command(label='quit')
         
         self.root.config(menu=self.menuBar)
+        
+    def updateFileList(self, newList):
+        """ Replace the current list of files with a new list. """
+        self.fileListBox.delete(0, END)
+        for item in newList:
+            self.fileListBox.insert(END, item)
     
     def updateOnClick(self, a):
         """ Update the position of the reticle on a click on the image. """
@@ -121,6 +127,7 @@ class GFRGBGUI:
         self.xEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.yEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.radiusEntry.bind('<Return>', lambda x: self.updateOnClick(x))
+        self.fileListBox.bind('<Button-1>', lambda x: JACKPUTYOURFUNCTIONHERE(x))
 
 if __name__ == "__main__":
     
