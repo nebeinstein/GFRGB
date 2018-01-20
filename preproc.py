@@ -30,9 +30,9 @@ def autocrop_edges(img):
     crop = img[y : y + h, x : x + w]
     return crop
 
-x = load_image_as_grayscale('warn.jpg')
-x = apply_blur(x)
-x = autocrop_edges(x)
-x = circle_darkest(x)
-cv2.imshow("Circled Darkest", x)
-cv2.waitKey(0)
+#x = load_image_as_grayscale('warn.jpg')
+#x = apply_blur(x)
+#x = autocrop_edges(x)
+#x = circle_darkest(x)
+#cv2.imshow("Circled Darkest", x)
+#cv2.waitKey(0)
