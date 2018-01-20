@@ -1,3 +1,7 @@
 *.png
 *.jpg
 *.zip
+__pycache__
+.project
+.pydevproject
+*.tif
