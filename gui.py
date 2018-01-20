@@ -84,7 +84,7 @@ class GFRGBGUI:
         self.fileListBox.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
         self.fileMenu.add_command(label='Open', command=self.menu_item_open)
         self.fileMenu.add_command(label='Save')
-        self.fileMenu.add_command(label='Quit')
+        self.fileMenu.add_command(label='Exit')
         
         self.root.config(menu=self.menuBar)
         
