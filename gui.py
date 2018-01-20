@@ -69,10 +69,10 @@ class GFRGBGUI:
         self.nextButt = ttk.Button(self.maineframe, text='Next')
         self.imageCanvas = Canvas(self.maineframe, width=700, height=700)
         self.image = self.imageCanvas.create_image((350,350), image=self.screamjov)   
-        self.fileListBox = Listbox(self.maineframe)  
+        self.fileListBox = Listbox(self.maineframe, width=40)  
         self.menuBar = Menu(self.root) 
         self.fileMenu = Menu(self.menuBar)
-        self.menuBar.add_cascade(menu=self.fileMenu, label='File')
+        self.fileListHorzScroll = ttk.Scrollbar(self.fileListBox, orient=HORIZONTAL, command=self.fileListBox.xview)
         
         self.xEntry.grid(column=2, row=1)
         self.yEntry.grid(column=2, row=2)
@@ -85,6 +85,10 @@ class GFRGBGUI:
         self.fileMenu.add_command(label='Open', command=self.menu_item_open)
         self.fileMenu.add_command(label='Save')
         self.fileMenu.add_command(label='Quit')
+        self.menuBar.add_cascade(menu=self.fileMenu, label='File')
+        self.fileListBox.configure(yscrollcommand=self.fileListHorzScroll.set)
+        self.fileListHorzScroll.grid(sticky=(S,W))
+        self.fileListHorzScroll.pack(side=BOTTOM, fill=X)
         
         self.root.config(menu=self.menuBar)
         
@@ -139,7 +143,6 @@ class GFRGBGUI:
         self.xEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.yEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.radiusEntry.bind('<Return>', lambda x: self.updateOnClick(x))
-        self.fileListBox.bind('<Button-1>', lambda x: self.menu_item_open(x))
 
 
         
