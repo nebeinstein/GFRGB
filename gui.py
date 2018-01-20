@@ -125,9 +125,9 @@ class GFRGBGUI:
     def menu_item_open(self,a):
         """Loads in all the files in the given directory."""
         print("OPEN menu item clicked")
-        filepath = filedialog.askopenfilename()
+        filepath = filedialog.askdirectory()
         the_list_of_files = ldr.get_files_in(filepath)
-        # self.populate_the_file_list_with(the_list_of_files)
+        self.updateFileList(the_list_of_files)
 
     def menu_item_exit(self):
         """Exits the program"""
