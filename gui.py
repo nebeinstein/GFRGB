@@ -84,15 +84,11 @@ class GFRGBGUI:
         self.fileListBox.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
         self.fileMenu.add_command(label='Open', command=self.menu_item_open)
         self.fileMenu.add_command(label='Save')
-<<<<<<< HEAD
         self.fileMenu.add_command(label='Quit')
         self.menuBar.add_cascade(menu=self.fileMenu, label='File')
         self.fileListBox.configure(yscrollcommand=self.fileListHorzScroll.set)
         self.fileListHorzScroll.grid(sticky=(S,W))
         self.fileListHorzScroll.pack(side=BOTTOM, fill=X)
-=======
-        self.fileMenu.add_command(label='Exit')
->>>>>>> 891b193d88f2192ab843e244f8ff093c98bda335
         
         self.root.config(menu=self.menuBar)
         
