@@ -1,1 +1,1 @@
-"#GFRGB"
+#GFRGB
