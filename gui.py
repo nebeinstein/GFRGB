@@ -58,23 +58,27 @@ ttk.Label(maineframe, text='Arc Phase:').grid(column=4, row=2)
 
 for child in maineframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 print('xy', imageCanvas.winfo_width(), imageCanvas.winfo_height())
-def printData(a, b):
-    print(horzLine)
-    print(vertLine)
-    x = int(xEntry.get())
-    y = int(yEntry.get())
+def updateOnClick(a):
     imageCanvas.coords(horzLine, a.x-10, a.y, a.x+10, a.y)
     imageCanvas.coords(vertLine, a.x, a.y-10, a.x, a.y+10)
-    print(b.winfo_width(), b.winfo_height())
-    print(a.x)
+    xEntry.delete(0, END)
+    yEntry.delete(0, END)
+    xEntry.insert(0, str(a.x - (700 - scream.width)))
+    yEntry.insert(0, str(a.y - (700 - scream.height)))
     
-def updateLocation(xEntry, yEntry):
+def updateOnReturn(a):
+    x = int(xEntry.get())
+    y = int(yEntry.get())
+    x = x + (700 - scream.width)/2
+    y = y + (700 - scream.height)/2
+    imageCanvas.coords(horzLine, x-10, y, x+10, y)
+    imageCanvas.coords(vertLine, x, y+10, x, y-10)
     pass
 
-imageCanvas.bind('<Button-1>', lambda x: printData(x, imageCanvas))
-xEntry.bind('<Return>', lambda x: printData(x, xEntry))
-yEntry.bind('<Return>', lambda x: printData(x, yEntry))
-radiusEntry.bind('<Return>', lambda x: printData(x, radiusEntry))
+imageCanvas.bind('<Button-1>', lambda x: updateOnClick(x))
+xEntry.bind('<Return>', lambda x: updateOnReturn(x))
+yEntry.bind('<Return>', lambda x: updateOnReturn(x))
+radiusEntry.bind('<Return>', lambda x: updateOnClick(x))
 
 root.mainloop()
 
