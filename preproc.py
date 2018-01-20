@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 blur_radius = 15
-
+edge_cut = 20
 def load_image_as_grayscale(filepath):
     """load an image as grayscale at the specified location and return it."""
     img = cv2.imread(filepath, 0)
@@ -23,16 +23,16 @@ def circle_darkest(img):
 
 def autocrop_edges(img):
     """Crops the black edges of the image"""
-    _,thresh = cv2.threshold(img, 1, 255, cv2.THRESH_BINARY)
+    _,thresh = cv2.threshold(img, 60, 200, cv2.THRESH_BINARY)
     contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnt = contours[0]
     x,y,w,h = cv2.boundingRect(cnt)
-    crop = img[y : y + h, x : x + w]
+    crop = img[y + edge_cut : y + h - edge_cut, x + edge_cut : x + w - edge_cut]
     return crop
 
-x = load_image_as_grayscale('warn.jpg')
+x = load_image_as_grayscale('AVG_exposed.tif')
 x = apply_blur(x)
-x = autocrop_edges(x)
-x = circle_darkest(x)
+x = autocrop_edges(255-x)
+x = circle_darkest(255-x)
 cv2.imshow("Circled Darkest", x)
 cv2.waitKey(0)
