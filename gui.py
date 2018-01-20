@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk filedialog
+from tkinter import ttk, filedialog
 from PIL import Image, ImageTk
 import preproc as pp
 import loader as ldr
@@ -121,24 +121,27 @@ class GFRGBGUI:
     def run(self):
         """ make it go"""
         self.root.mainloop()
-        
+
+    def menu_item_open(self,a):
+        """Loads in all the files in the given directory."""
+        print("OPEN menu item clicked")
+        filepath = filedialog.askopenfilename()
+        the_list_of_files = ldr.get_files_in(filepath)
+        # self.populate_the_file_list_with(the_list_of_files)
+
+    def menu_item_exit(self):
+        """Exits the program"""
+        sys.exit(0)
+
     def setCallbacks(self):
         """ Set callbacks in the object. """
         self.imageCanvas.bind('<Button-1>', lambda x: self.updateOnClick(x))
         self.xEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.yEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.radiusEntry.bind('<Return>', lambda x: self.updateOnClick(x))
-        self.fileListBox.bind('<Button-1>', lambda x: menu_item_open(x))
+        self.fileListBox.bind('<Button-1>', lambda x: self.menu_item_open(x))
 
-    def menu_item_open(self):
-        """Loads in all the files in the given directory."""
-        filepath = filedialog.askopenfilename()
-        the_list_of_files = ldr.get_files_in(filepath)
-        self.populate_the_file_list_with(the_list_of_files)
 
-    def menu_item_exit(self):
-        """Exits the program"""
-        sys.exit(0)
         
 if __name__ == "__main__":
     
