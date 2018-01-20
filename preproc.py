@@ -17,17 +17,17 @@ def apply_blur(img):
 def circle_darkest(img):
     """Circles the darkest point in an image."""
     radius = blur_radius
-    (minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(img)
+    minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(img)
     cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)
     return img
 
 def autocrop_edges(img):
     """Crops the black edges of the image"""
-    _,thresh = cv2.threshold(img,1,255,cv2.THRESH_BINARY)
-    contours = cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    _,thresh = cv2.threshold(img, 1, 255, cv2.THRESH_BINARY)
+    contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnt = contours[0]
     x,y,w,h = cv2.boundingRect(cnt)
-    crop = img[y:y+h,x:x+w]
+    crop = img[y : y + h, x : x + w]
     return crop
 
 x = load_image_as_grayscale('warn.jpg')
