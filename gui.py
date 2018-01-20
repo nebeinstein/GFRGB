@@ -66,17 +66,17 @@ def updateOnClick(a):
     imageCanvas.coords(horzLine, a.x-10, a.y, a.x+10, a.y)
     imageCanvas.coords(vertLine, a.x, a.y-10, a.x, a.y+10)
     imageCanvas.coords(reticleArc, a.x-r, a.y-r, a.x+r, a.y+r)
-    imageCanvas.itemconfigure(reticleArc, start=theta, extent=psi)
+    imageCanvas.itemconfigure(reticleArc, start=psi, extent=theta)
     xEntry.delete(0, END)
     yEntry.delete(0, END)
-    xEntry.insert(0, str(a.x - (700 - scream.width)))
-    yEntry.insert(0, str(a.y - (700 - scream.height)))
+    xEntry.insert(0, str(a.x - (700 - scream.width)/2))
+    yEntry.insert(0, str(-1*(a.y - (700 - scream.height/2))))
     
 def updateOnReturn(a):
     x = int(xEntry.get())
-    y = int(yEntry.get())
+    y = -1*int(yEntry.get())
     x = x + (700 - scream.width)/2
-    y = y + (700 - scream.height)/2
+    y = y + (700 + scream.height)/2
     imageCanvas.coords(horzLine, x-10, y, x+10, y)
     imageCanvas.coords(vertLine, x, y+10, x, y-10)
     pass
