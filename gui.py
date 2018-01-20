@@ -135,7 +135,7 @@ class GFRGBGUI:
         sys.exit(0)
 
     def setCallbacks(self):
-        """ Set callbacks in the object. """
+        """Set callbacks in the object."""
         self.imageCanvas.bind('<Button-1>', lambda x: self.updateOnClick(x))
         self.xEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
         self.yEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
