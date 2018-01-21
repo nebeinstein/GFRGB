@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import preproc as pp
 import loader as ldr
 import sys
+
 class GFRGBGUI:
     def __init__(self, root):
         """ Create the window and define the grid weights.
@@ -16,110 +17,110 @@ class GFRGBGUI:
         
         self.root.option_add('*tearOff', False)
         
-        self.maineframe = ttk.Frame(self.root, padding="3 3 12 12")
-        self.maineframe.grid(column=0, row=0, sticky=(N, W, E, S))
-        self.maineframe.columnconfigure(0, weight=1)
-        self.maineframe.columnconfigure(1, weight=1)
-        self.maineframe.columnconfigure(2, weight=1)
-        self.maineframe.columnconfigure(3, weight=1)
-        self.maineframe.columnconfigure(4, weight=1)
-        self.maineframe.columnconfigure(5, weight=1)
-        self.maineframe.columnconfigure(6, weight=4)
-        self.maineframe.columnconfigure(7, weight=1)
-        self.maineframe.rowconfigure(0, weight=1)
-        self.maineframe.rowconfigure(1, weight=1)
-        self.maineframe.rowconfigure(2, weight=1)
+        self.maine_frame = ttk.Frame(self.root, padding="3 3 12 12")
+        self.maine_frame.grid(column=0, row=0, sticky=(N, W, E, S))
+        self.maine_frame.columnconfigure(0, weight=1)
+        self.maine_frame.columnconfigure(1, weight=1)
+        self.maine_frame.columnconfigure(2, weight=1)
+        self.maine_frame.columnconfigure(3, weight=1)
+        self.maine_frame.columnconfigure(4, weight=1)
+        self.maine_frame.columnconfigure(5, weight=1)
+        self.maine_frame.columnconfigure(6, weight=4)
+        self.maine_frame.columnconfigure(7, weight=1)
+        self.maine_frame.rowconfigure(0, weight=1)
+        self.maine_frame.rowconfigure(1, weight=1)
+        self.maine_frame.rowconfigure(2, weight=1)
         
         #self.win = Toplevel(self.root)
         
-        ttk.Label(self.maineframe, text='X:').grid(column=1, row=1)
-        ttk.Label(self.maineframe, text='Y:').grid(column=1, row=2)
-        ttk.Label(self.maineframe, text='Radius:').grid(column=3, row=1)
-        ttk.Label(self.maineframe, text='Arc Length:').grid(column=3, row=2)
-        ttk.Label(self.maineframe, text='Arc Phase:').grid(column=5, row=2)
+        ttk.Label(self.maine_frame, text='X:').grid(column=1, row=1)
+        ttk.Label(self.maine_frame, text='Y:').grid(column=1, row=2)
+        ttk.Label(self.maine_frame, text='Radius:').grid(column=3, row=1)
+        ttk.Label(self.maine_frame, text='Arc Length:').grid(column=3, row=2)
+        ttk.Label(self.maine_frame, text='Arc Phase:').grid(column=5, row=2)
         
-        self.populateWidgets()
-        self.makeReticle()
-        self.setCallbacks()
+        self.populate_widgets()
+        self.make_reticle()
+        self.set_callbacks()
         
-        for child in self.maineframe.winfo_children(): child.grid_configure(padx=5, pady=5)
+        for child in self.maine_frame.winfo_children(): child.grid_configure(padx=5, pady=5)
         
-    def makeReticle(self):
+    def make_reticle(self):
         """ toss the reticle onto the image right there in the middle"""
-        self.horzLine = self.imageCanvas.create_line(340,350,360,350, fill='red')
-        self.vertLine = self.imageCanvas.create_line(350,360,350,340, fill='red')
-        self.reticleArc = self.imageCanvas.create_arc(330,330, 370,370, outline='red', style='arc')
+        self.horz_line = self.image_canvas.create_line(340,350,360,350, fill='red')
+        self.vert_line = self.image_canvas.create_line(350,360,350,340, fill='red')
+        self.reticle_arc = self.image_canvas.create_arc(330,330, 370,370, outline='red', style='arc')
         
-    def populateWidgets(self):
+    def populate_widgets(self):
         """ Create and add the widgets to the window. """
         self.scream = Image.open('.\\ordo hereticus seal.jpg')
-        self.screamjov = ImageTk.PhotoImage(self.scream)
+        self.scream_tkver = ImageTk.PhotoImage(self.scream)
         
-        self.xVar = IntVar()
-        self.yVar = IntVar()
-        self.radiusVar = IntVar()
-        self.arcLenVar = IntVar()
-        self.arcPhaseVar = IntVar()
+        self.x_var = IntVar()
+        self.y_var = IntVar()
+        self.radius_var = IntVar()
+        self.arc_length_var = IntVar()
+        self.arc_phase_var = IntVar()
         
-        self.xEntry = ttk.Entry(self.maineframe, textvariable=self.xVar)
-        self.yEntry = ttk.Entry(self.maineframe, textvariable=self.yVar)
-        self.radiusEntry = ttk.Entry(self.maineframe, textvariable=self.radiusVar)
-        self.arcLengthEntry = ttk.Entry(self.maineframe, textvariable=self.arcLenVar)
-        self.arcPhaseEntry = ttk.Entry(self.maineframe, textvariable=self.arcPhaseVar)
-        self.nextButt = ttk.Button(self.maineframe, text='Next')
-        self.imageCanvas = Canvas(self.maineframe, width=700, height=700)
-        self.image = self.imageCanvas.create_image((350,350), image=self.screamjov)   
-        self.fileListBox = Listbox(self.maineframe, width=40)  
-        self.menuBar = Menu(self.root) 
-        self.fileMenu = Menu(self.menuBar)
-        self.fileListHorzScroll = ttk.Scrollbar(self.fileListBox, orient=HORIZONTAL, command=self.fileListBox.xview)
+        self.x_entry = ttk.Entry(self.maine_frame, textvariable=self.x_var)
+        self.y_entry = ttk.Entry(self.maine_frame, textvariable=self.y_var)
+        self.radius_entry = ttk.Entry(self.maine_frame, textvariable=self.radius_var)
+        self.arc_length_entry = ttk.Entry(self.maine_frame, textvariable=self.arc_length_var)
+        self.arc_phase_entry = ttk.Entry(self.maine_frame, textvariable=self.arc_phase_var)
+        self.next_butt = ttk.Button(self.maine_frame, text='Next')
+        self.image_canvas = Canvas(self.maine_frame, width=700, height=700)
+        self.image = self.image_canvas.create_image((350,350), image=self.scream_tkver)   
+        self.file_list_box = Listbox(self.maine_frame, width=40)  
+        self.menu_bar = Menu(self.root) 
+        self.file_menu = Menu(self.menu_bar)
+        self.file_list_horizontal_scroll = ttk.Scrollbar(self.file_list_box, orient=HORIZONTAL, command=self.file_list_box.xview)
         
-        self.xEntry.grid(column=2, row=1)
-        self.yEntry.grid(column=2, row=2)
-        self.radiusEntry.grid(column=4, row=1)
-        self.arcLengthEntry.grid(column=4, row=2)
-        self.arcPhaseEntry.grid(column=6, row=2)
-        self.nextButt.grid(column=8, row=2)
-        self.imageCanvas.grid(column=1, row=0, columnspan=8) 
-        self.fileListBox.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
-        self.fileMenu.add_command(label='Open', command=self.menu_item_open)
-        self.fileMenu.add_command(label='Save')
-        self.fileMenu.add_command(label='Quit')
-        self.menuBar.add_cascade(menu=self.fileMenu, label='File')
-        self.fileListBox.configure(yscrollcommand=self.fileListHorzScroll.set)
-        self.fileListHorzScroll.grid(sticky=(S,W))
-        self.fileListHorzScroll.pack(side=BOTTOM, fill=X)
+        self.x_entry.grid(column=2, row=1)
+        self.y_entry.grid(column=2, row=2)
+        self.radius_entry.grid(column=4, row=1)
+        self.arc_length_entry.grid(column=4, row=2)
+        self.arc_phase_entry.grid(column=6, row=2)
+        self.next_butt.grid(column=8, row=2)
+        self.image_canvas.grid(column=1, row=0, columnspan=8) 
+        self.file_list_box.grid(column=0, row=0, rowspan=3, sticky=(N, W, S, E))
+        self.file_menu.add_command(label='Open', command=self.menu_item_open)
+        self.file_menu.add_command(label='Save')
+        self.file_menu.add_command(label='Quit')
+        self.menu_bar.add_cascade(menu=self.file_menu, label='File')
+        self.file_list_box.configure(yscrollcommand=self.file_list_horizontal_scroll.set)
+        self.file_list_horizontal_scroll.grid(sticky=(S,W))
+        self.file_list_horizontal_scroll.pack(side=BOTTOM, fill=X)
         
-        self.root.config(menu=self.menuBar)
+        self.root.config(menu=self.menu_bar)
         
-    def updateFileList(self, newList):
+    def update_file_list(self, newList):
         """ Replace the current list of files with a new list. """
-        self.fileListBox.delete(0, END)
+        self.file_list_box.delete(0, END)
         for item in newList:
-            self.fileListBox.insert(END, item)
+            self.file_list_box.insert(END, item)
     
-    def updateOnClick(self, a):
+    def update_on_click(self, a):
         """ Update the position of the reticle on a click on the image. """
-        r = int(self.radiusEntry.get())
-        theta = int(self.arcLengthEntry.get())
-        psi = int(self.arcPhaseEntry.get())
-        self.imageCanvas.coords(self.horzLine, a.x-10, a.y, a.x+10, a.y)
-        self.imageCanvas.coords(self.vertLine, a.x, a.y-10, a.x, a.y+10)
-        self.imageCanvas.coords(self.reticleArc, a.x-r, a.y-r, a.x+r, a.y+r)
-        self.imageCanvas.itemconfigure(self.reticleArc, start=psi, extent=theta)
-        self.xEntry.delete(0, END)
-        self.yEntry.delete(0, END)
-        self.xEntry.insert(0, str(a.x - (700 - self.scream.width)/2))
-        self.yEntry.insert(0, str(-1*(a.y - (700 - self.scream.height/2))))
+        r = int(self.radius_entry.get())
+        theta = int(self.arc_length_entry.get())
+        psi = int(self.arc_phase_entry.get())
+        self.image_canvas.coords(self.horz_line, a.x-10, a.y, a.x+10, a.y)
+        self.image_canvas.coords(self.vert_line, a.x, a.y-10, a.x, a.y+10)
+        self.image_canvas.coords(self.reticle_arc, a.x-r, a.y-r, a.x+r, a.y+r)
+        self.image_canvas.itemconfigure(self.reticle_arc, start=psi, extent=theta)
+        self.x_entry.delete(0, END)
+        self.y_entry.delete(0, END)
+        self.x_entry.insert(0, str(a.x - (700 - self.scream.width)/2))
+        self.y_entry.insert(0, str(-1*(a.y - (700 - self.scream.height/2))))
             
-    def updateOnReturn(self, a):
+    def update_on_return(self, a):
         """ update the reticle's location when you hit return on the coordinate inputs """
-        x = float(self.xEntry.get())
-        y = -1*float(self.yEntry.get())
+        x = float(self.x_entry.get())
+        y = -1*float(self.y_entry.get())
         x = x + (700 - self.scream.width)/2
         y = y + (700 + self.scream.height)/2
-        self.imageCanvas.coords(self.horzLine, x-10, y, x+10, y)
-        self.imageCanvas.coords(self.vertLine, x, y+10, x, y-10)
+        self.image_canvas.coords(self.horz_line, x-10, y, x+10, y)
+        self.image_canvas.coords(self.vert_line, x, y+10, x, y-10)
         pass
     
     def run(self):
@@ -132,18 +133,18 @@ class GFRGBGUI:
         if(filepath==''):
             return
         the_list_of_files = ldr.get_files_in(filepath)
-        self.updateFileList(the_list_of_files)
+        self.update_file_list(the_list_of_files)
 
     def menu_item_exit(self):
         """Exits the program"""
         sys.exit(0)
 
-    def setCallbacks(self):
+    def set_callbacks(self):
         """Set callbacks in the object."""
-        self.imageCanvas.bind('<Button-1>', lambda x: self.updateOnClick(x))
-        self.xEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
-        self.yEntry.bind('<Return>', lambda x: self.updateOnReturn(x))
-        self.radiusEntry.bind('<Return>', lambda x: self.updateOnClick(x))
+        self.image_canvas.bind('<Button-1>', lambda x: self.update_on_click(x))
+        self.x_entry.bind('<Return>', lambda x: self.update_on_return(x))
+        self.y_entry.bind('<Return>', lambda x: self.update_on_return(x))
+        self.radius_entry.bind('<Return>', lambda x: self.update_on_click(x))
 
 
         
