@@ -12,7 +12,7 @@ class GFRGBGUI:
         
         self.root = root
         
-        self.root.title("Radio-Memology App")
+        self.root.title("Gluten Free (tm) Radioactive Green Beans - Radio-Memology App")
         
         self.root.option_add('*tearOff', False)
         
