@@ -4,6 +4,9 @@ def get_files_in(directory):
     """returns a list of files in the given directory"""
     return os.listdir(directory)
 
+def clean_file_list(lis):
+    return [x for x in lis if x.endswith('.tif')]
+
 def process_image(filepath):
     """Processes a given image"""
     img = pp.load_image_as_grayscale(filepath)
@@ -16,7 +19,6 @@ def process_list(lis):
     """This takes a list of filepaths and processes each one"""
     return [process_image(x) for x in lis]
     
-
 def process_all(directory):
     """Processess all of the images in a given directory"""
     return process_list(get_files_in(directory))

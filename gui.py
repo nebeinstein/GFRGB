@@ -131,7 +131,7 @@ class GFRGBGUI:
         filepath = filedialog.askdirectory()
         if(filepath==''):
             return
-        the_list_of_files = ldr.get_files_in(filepath)
+        the_list_of_files = ldr.clean_file_list(ldr.get_files_in(filepath))
         self.updateFileList(the_list_of_files)
 
     def menu_item_exit(self):
