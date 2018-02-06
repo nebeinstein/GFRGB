@@ -60,7 +60,7 @@ class MainWin(QMainWindow):
     
     def list_selection_changed(self):
         print('List changed!')
-
+        print(self.lis.currentItem().text())
     
 if(__name__ == '__main__'):
     app = QApplication(sys.argv)
