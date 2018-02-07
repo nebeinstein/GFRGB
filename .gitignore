@@ -6,3 +6,4 @@ __pycache__/*
 .pydevproject
 *.tif
 *.pyc
+__pycache__/preproc.cpython-36.pyc
