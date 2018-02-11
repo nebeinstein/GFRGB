@@ -4,6 +4,8 @@ from PIL import Image, ImageTk
 import preproc as pp
 import loader as ldr
 import sys
+import cv2
+import numpy as np
 
 class GFRGBGUI:
     def __init__(self, root):
@@ -103,8 +105,10 @@ class GFRGBGUI:
     def update_file_select(self, a):
         print(self.file_list_box.get(self.file_list_box.curselection()))
         box_idx = self.file_list_box.curselection()[0]
-        self.scream = Image.open(self.filepath + '/' + self.file_list_box.get(box_idx))
+        self.im_array = cv2.imread(self.filepath + '/' + self.file_list_box.get(box_idx), -1)
+        self.scream = Image.fromarray(self.im_array/128, 'RGB')
         self.scream_tkver = ImageTk.PhotoImage(self.scream)
+        self.image_canvas.itemconfig(self.image, image = self.scream_tkver)
     
     def update_on_click(self, a):
         """ Update the position of the reticle on a click on the image. """
