@@ -106,9 +106,17 @@ class GFRGBGUI:
         print(self.file_list_box.get(self.file_list_box.curselection()))
         box_idx = self.file_list_box.curselection()[0]
         self.im_array = cv2.imread(self.filepath + '/' + self.file_list_box.get(box_idx), -1)
-        self.scream = Image.fromarray(self.im_array/128, 'RGB')
+        conv_im = np.right_shift(self.im_array, 8).astype(np.uint8)
+        tmp = conv_im[:,:,0].copy()
+        conv_im[:,:,0] = conv_im[:,:,2].copy()
+        conv_im[:,:,2] = tmp.copy()
+        """tmp = conv_im[:,:,1]
+        conv_im[:,:,1] = conv_im[:,:,2]
+        conv_im[:,:,2] = tmp"""
+        print(conv_im.shape)
+        self.scream = Image.fromarray(conv_im, 'RGB')
         self.scream_tkver = ImageTk.PhotoImage(self.scream)
-        self.image_canvas.itemconfig(self.image, image = self.scream_tkver)
+        self.image_canvas.itemconfig(self.image, image=self.scream_tkver)
     
     def update_on_click(self, a):
         """ Update the position of the reticle on a click on the image. """
