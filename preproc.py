@@ -30,6 +30,8 @@ def autocrop_edges(img):
     crop = img[y + edge_cut : y + h - edge_cut, x + edge_cut : x + w - edge_cut]
     return crop
 
+def save_image(filename, img):
+    cv2.imwrite("PROC" + filename, img)
 #x = load_image_as_grayscale('warn.jpg')
 #x = apply_blur(x)
 #x = autocrop_edges(x)

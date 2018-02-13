@@ -1,19 +1,21 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QAction, qApp, QFileDialog, QListWidget, QListView, QGridLayout,QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QAction, qApp, QFileDialog, QListWidget, QListView, QGridLayout, QHBoxLayout
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtGui import *
 import sys
 import loader as ld
 class MainWin(QMainWindow):
     lis = None
+    img = None
     def __init__(self):
         super().__init__()
         self.init_ui()
 
     def init_ui(self):
-
         layout = QHBoxLayout()
         self.setLayout(layout)
 
         self.statusBar().showMessage('Ready')
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100, 100, 900, 900)
         self.setMinimumSize(500, 500)
         self.setWindowTitle('Gluten Free Radioactive Green Beans')
 
@@ -38,7 +40,15 @@ class MainWin(QMainWindow):
         self.lis.currentItemChanged.connect(self.list_selection_changed)
         layout.addWidget(self.lis)
 
+        self.img = QLabel(self)
+        self.img.resize(800,800)
+        self.img.move(200,20)
+        layout.addWidget(self.img)
         self.show()
+
+    def create_image_viewer(self, filepath):
+        
+        pass
 
     def import_action(self):
         filepath = self.show_import_folder_dialog()
@@ -60,8 +70,18 @@ class MainWin(QMainWindow):
     
     def list_selection_changed(self):
         print('List changed!')
-        print(self.lis.currentItem().text())
+        qpm = QPixmap(self.lis.currentItem().text())
+        self.img.resize(qpm.width(),qpm.height())
+        self.img.setPixmap(qpm)
+        QApplication.processEvents()
     
+    def process_image(self):
+        processed = []
+        current_selection = self.lis.currentItem().text()
+        processed.append(current_selection)
+        ld.process_image(current_selection)
+
+        
 if(__name__ == '__main__'):
     app = QApplication(sys.argv)
     main = MainWin()

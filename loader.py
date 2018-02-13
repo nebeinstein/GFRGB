@@ -13,6 +13,7 @@ def process_image(filepath):
     img = pp.autocrop_edges(img)
     img = pp.apply_blur(img)
     img = pp.circle_darkest(img)
+    pp.save_image(filepath, img)
     return img
 
 def process_list(lis):
