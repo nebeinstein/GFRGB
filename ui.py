@@ -1,24 +1,61 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QAction, qApp, QFileDialog, QListWidget, QListView, QGridLayout, QHBoxLayout
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import qApp
+from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QListWidget
+from PyQt5.QtWidgets import QListView
+from PyQt5.QtWidgets import QGridLayout
+from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QLabel
-from PyQt5.QtGui import *
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtGui import QPixmap
+
 import sys
 import loader as ld
 class MainWin(QMainWindow):
     lis = None
     img = None
+    lay = None
     def __init__(self):
         super().__init__()
         self.init_ui()
 
     def init_ui(self):
-        layout = QHBoxLayout()
-        self.setLayout(layout)
-
+        self.lay = QHBoxLayout()
+        self.setLayout(self.lay)
         self.statusBar().showMessage('Ready')
         self.setGeometry(100, 100, 900, 900)
         self.setMinimumSize(500, 500)
         self.setWindowTitle('Gluten Free Radioactive Green Beans')
 
+        self.init_file_menu()
+        self.init_list_view()
+        self.init_image_viewer()
+        
+        button = QPushButton("Process Image", self)
+        button.setToolTip("This will process the given image and save it.")
+        button.move(200,850)
+        button.clicked.connect(self.process_button_pressed)
+
+
+        self.show()
+
+    def init_image_viewer(self):
+        self.img = QLabel(self)
+        self.img.resize(800,800)
+        self.img.move(200,20)
+
+        self.lay.addWidget(self.img)
+
+    def init_list_view(self):
+        self.lis=QListWidget(self)
+        self.lis.move(0, 20)
+        self.lis.currentItemChanged.connect(self.list_selection_changed)
+        self.lay.addWidget(self.lis)
+
+    def init_file_menu(self):
         exit_item = QAction('&Exit', self)
         exit_item.setShortcut('Ctrl+Q')
         exit_item.setStatusTip('Exit Application')
@@ -34,18 +71,6 @@ class MainWin(QMainWindow):
         file_menu.addAction(import_item)
         file_menu.addAction(exit_item)
 
-        self.lis=QListWidget(self)
-        self.lis.move(0, 20)
-        x = None
-        self.lis.currentItemChanged.connect(self.list_selection_changed)
-        layout.addWidget(self.lis)
-
-        self.img = QLabel(self)
-        self.img.resize(800,800)
-        self.img.move(200,20)
-        layout.addWidget(self.img)
-        self.show()
-
     def create_image_viewer(self, filepath):
         
         pass
@@ -55,7 +80,6 @@ class MainWin(QMainWindow):
         if(filepath == ''):
             return
         file_list = ld.clean_file_list(ld.get_files_in(filepath))
-        print(file_list)
         self.lis.addItems(file_list)
         
     def show_import_folder_dialog(self):
@@ -69,17 +93,25 @@ class MainWin(QMainWindow):
         self.lis.setGeometry(0, 20, 200, self.frameGeometry().height()-80)
     
     def list_selection_changed(self):
-        print('List changed!')
+        if(self.lis.currentItem() == None):
+            return
         qpm = QPixmap(self.lis.currentItem().text())
         self.img.resize(qpm.width(),qpm.height())
         self.img.setPixmap(qpm)
         QApplication.processEvents()
     
+    def process_button_pressed(self):
+        self.process_image()
+
     def process_image(self):
-        processed = []
+        if(self.lis.currentItem() == None):
+            return
         current_selection = self.lis.currentItem().text()
-        processed.append(current_selection)
         ld.process_image(current_selection)
+        filepath = current_selection[:current_selection.rfind('/')]
+        file_list = ld.clean_file_list(ld.get_files_in(filepath))
+        self.lis.clear()
+        self.lis.addItems(file_list)
 
         
 if(__name__ == '__main__'):
