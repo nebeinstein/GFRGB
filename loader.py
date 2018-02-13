@@ -2,7 +2,7 @@ import os
 import preproc as pp
 def get_files_in(directory):
     """returns a list of files in the given directory"""
-    return os.listdir(directory)
+    return [directory+ "/" + x for x in os.listdir(directory)]
 
 def clean_file_list(lis):
     return [x for x in lis if x.endswith('.tif')]
