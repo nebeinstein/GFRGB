@@ -18,6 +18,8 @@ class MainWin(QMainWindow):
     lis = None
     img = None
     lay = None
+    button = None
+    
     def __init__(self):
         super().__init__()
         self.init_ui()
@@ -34,10 +36,10 @@ class MainWin(QMainWindow):
         self.init_list_view()
         self.init_image_viewer()
         
-        button = QPushButton("Process Image", self)
-        button.setToolTip("This will process the given image and save it.")
-        button.move(200,850)
-        button.clicked.connect(self.process_button_pressed)
+        self.button = QPushButton("Process Image", self)
+        self.button.setToolTip("This will process the given image and save it.")
+        self.button.move(200,850)
+        self.button.clicked.connect(self.process_button_pressed)
 
 
         self.show()
@@ -46,7 +48,6 @@ class MainWin(QMainWindow):
         self.img = QLabel(self)
         self.img.resize(800,800)
         self.img.move(200,20)
-
         self.lay.addWidget(self.img)
 
     def init_list_view(self):
@@ -71,10 +72,6 @@ class MainWin(QMainWindow):
         file_menu.addAction(import_item)
         file_menu.addAction(exit_item)
 
-    def create_image_viewer(self, filepath):
-        
-        pass
-
     def import_action(self):
         filepath = self.show_import_folder_dialog()
         if(filepath == ''):
@@ -90,8 +87,10 @@ class MainWin(QMainWindow):
         self.respond_to_resize()
     
     def respond_to_resize(self):
-        self.lis.setGeometry(0, 20, 200, self.frameGeometry().height()-80)
-    
+        self.lis.setGeometry(0, 20, self.frameGeometry().width()//5, self.frameGeometry().height()-80)
+        self.button.move(self.frameGeometry().width()//5,850)
+        self.img.move(self.frameGeometry().width()//5,20)
+
     def list_selection_changed(self):
         if(self.lis.currentItem() == None):
             return

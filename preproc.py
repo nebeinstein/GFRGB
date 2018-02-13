@@ -20,7 +20,6 @@ def circle_darkest(img):
     radius = blur_radius
     minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(img)
     # cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)
-    
     print(minLoc)
     plt.plot(img[:][minLoc[1]])
     plt.ylabel('Exposure')
