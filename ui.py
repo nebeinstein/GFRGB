@@ -21,6 +21,7 @@ class MainWin(QMainWindow):
 	lay = None
 	button = None
 	edge_cut_text_field = None
+	edge_cut_label = None
 	blur_radius_text_field = None
 	
 	def __init__(self):
@@ -77,6 +78,10 @@ class MainWin(QMainWindow):
 		self.edge_cut_text_field = QLineEdit(self)
 		self.edge_cut_text_field.resize(50,24)
 		self.edge_cut_text_field.textChanged.connect(self.edge_cut_changed)
+		self.edge_cut_label = QLabel(self)
+		self.edge_cut_label.setText("Edge Cut")
+		self.edge_cut_label.resize(50,24)
+		
 
 	def edge_cut_changed(self):
 		ld.set_preproc_edge_cut(int(self.edge_cut_text_field.text()))
@@ -99,7 +104,8 @@ class MainWin(QMainWindow):
 		self.lis.setGeometry(0, 20, self.frameGeometry().width() // 5, self.frameGeometry().height() - 80)
 		self.button.move(self.frameGeometry().width() // 5, 850)
 		self.img.move(self.frameGeometry().width() // 5, 20)
-		self.edge_cut_text_field.move((self.frameGeometry().width() // 4) + 100, 850)
+		self.edge_cut_text_field.move((self.frameGeometry().width() // 4) + 150, 850)
+		self.edge_cut_label.move(self.frameGeometry().width()//4 + 100 , 850)
 
 	def list_selection_changed(self):
 		if(self.lis.currentItem() == None):
