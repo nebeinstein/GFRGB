@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QGridLayout
 from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtGui import QPixmap
 
 import sys
@@ -19,6 +20,8 @@ class MainWin(QMainWindow):
     img = None
     lay = None
     button = None
+    edge_cut_text_field = None
+    blur_radius_text_field = None
     
     def __init__(self):
         super().__init__()
@@ -35,7 +38,7 @@ class MainWin(QMainWindow):
         self.init_file_menu()
         self.init_list_view()
         self.init_image_viewer()
-        
+        self.init_text_fields()
         self.button = QPushButton("Process Image", self)
         self.button.setToolTip("This will process the given image and save it.")
         self.button.move(200,850)
@@ -72,6 +75,11 @@ class MainWin(QMainWindow):
         file_menu.addAction(import_item)
         file_menu.addAction(exit_item)
 
+    def init_text_fields(self):
+        self.edge_cut_text_field = QLineEdit(self)
+        self.edge_cut_text_field.move(500,500)
+        self.edge_cut_text_field.resize(50,24)
+
     def import_action(self):
         filepath = self.show_import_folder_dialog()
         if(filepath == ''):
@@ -90,6 +98,7 @@ class MainWin(QMainWindow):
         self.lis.setGeometry(0, 20, self.frameGeometry().width()//5, self.frameGeometry().height()-80)
         self.button.move(self.frameGeometry().width()//5,850)
         self.img.move(self.frameGeometry().width()//5,20)
+        self.edge_cut_text_field.move((self.frameGeometry().width()//4)+100,850)
 
     def list_selection_changed(self):
         if(self.lis.currentItem() == None):

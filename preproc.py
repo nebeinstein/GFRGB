@@ -18,13 +18,17 @@ def apply_blur(img):
 def circle_darkest(img):
     """Circles the darkest point in an image."""
     radius = blur_radius
-    minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(img)
-    # cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)
+    minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(img) 
     print(minLoc)
-    plt.plot(img[:][minLoc[1]])
+    dat = img[:][minLoc[1]]
+    plt.plot(dat)
     plt.ylabel('Exposure')
     plt.xlabel('Distance in pixels')
     plt.show()
+    fil = open("data.csv","w")
+    fil.write(str(dat))
+    fil.close()
+    cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)
     return img
 
 def autocrop_edges(img):
