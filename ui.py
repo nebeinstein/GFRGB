@@ -41,10 +41,8 @@ class MainWin(QMainWindow):
 		self.init_text_fields()
 		self.button = QPushButton("Process Image", self)
 		self.button.setToolTip("This will process the given image and save it.")
-		self.button.move(200,850)
+		self.button.move(200, 850)
 		self.button.clicked.connect(self.process_button_pressed)
-
-
 		self.show()
 
 	def init_image_viewer(self):
@@ -77,8 +75,11 @@ class MainWin(QMainWindow):
 
 	def init_text_fields(self):
 		self.edge_cut_text_field = QLineEdit(self)
-		self.edge_cut_text_field.move(500,500)
 		self.edge_cut_text_field.resize(50,24)
+		self.edge_cut_text_field.textChanged.connect(self.edge_cut_changed)
+
+	def edge_cut_changed(self):
+		ld.set_preproc_edge_cut(int(self.edge_cut_text_field.text()))
 
 	def import_action(self):
 		filepath = self.show_import_folder_dialog()
@@ -121,7 +122,6 @@ class MainWin(QMainWindow):
 		self.lis.clear()
 		self.lis.addItems(file_list)
 
-		
 if(__name__ == '__main__'):
 	app = QApplication(sys.argv)
 	main = MainWin()

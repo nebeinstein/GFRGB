@@ -7,6 +7,9 @@ def get_files_in(directory):
 def clean_file_list(lis):
     return [x for x in lis if x.endswith('.tif')]
 
+def set_preproc_edge_cut(val):
+    pp.edge_cut=val
+
 def process_image(filepath):
     """Processes a given image"""
     img = pp.load_image_as_grayscale(filepath)

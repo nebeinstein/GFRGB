@@ -1,1 +1,0 @@
-conda install --channel https://conda.anaconda.org.menpo opencv3
