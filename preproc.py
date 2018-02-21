@@ -25,9 +25,9 @@ def circle_darkest(img):
     plt.ylabel('Exposure')
     plt.xlabel('Distance in pixels')
     plt.show()
-    fil = open("data.csv","w")
+    fil = open("data.csv", "w")
     i = 0
-    fil.write(str(minLoc)+"\n")
+    fil.write(str(minLoc) + "\n")
     for eachpoint in dat:
         fil.write(str(i) + "," + str(eachpoint) + "\n")
         i+=1
