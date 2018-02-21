@@ -26,7 +26,11 @@ def circle_darkest(img):
     plt.xlabel('Distance in pixels')
     plt.show()
     fil = open("data.csv","w")
-    fil.write(str(dat))
+    i = 0
+    fil.write(str(minLoc)+"\n")
+    for eachpoint in dat:
+        fil.write(str(i) + "," + str(eachpoint) + "\n")
+        i+=1
     fil.close()
     cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)
     return img
