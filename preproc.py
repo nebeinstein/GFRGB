@@ -20,9 +20,9 @@ def circle_darkest(img):
     radius = blur_radius
     minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(img) 
     print(minLoc)
-    dat = img[minLoc[0]][:]
+    dat = img[x][:]
     plt.plot(dat)
-    plt.ylabel('Exposure')
+    plt.ylabel('Greyscale')
     plt.xlabel('Distance in pixels')
     plt.show()
     fil = open("data.csv", "w")
