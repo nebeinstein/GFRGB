@@ -1,6 +1,7 @@
 *.png
 *.jpg
 *.zip
+*.csv
 __pycache__/*
 .project
 .pydevproject
