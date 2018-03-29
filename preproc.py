@@ -3,6 +3,11 @@ import cv2
 import matplotlib.pyplot as plt
 blur_radius = 15
 edge_cut = 30
+left_cut = 0
+right_cut = 0
+top_cut = 0
+bottom_cut = 0
+
 def load_image_as_grayscale(filepath):
     """load an image as grayscale at the specified location and return it."""
     img = cv2.imread(filepath, -1)
@@ -49,7 +54,7 @@ def autocrop_edges(img):
     contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnt = contours[0]
     x,y,w,h = cv2.boundingRect(cnt)
-    crop = img[y + edge_cut : y + h - edge_cut, x + edge_cut : x + w - edge_cut]
+    crop = img[y + edge_cut + top_cut: y + h - edge_cut - bottom_cut, x + edge_cut + left_cut : x + w - edge_cut - right_cut]
     return crop
 
 def cutFromTop(img,n):
