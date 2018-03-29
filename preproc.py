@@ -20,12 +20,9 @@ def circle_darkest(img):
     radius = blur_radius
     minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(img) 
     print(minLoc)
-
-    # dat = img[minLoc[1]][:] # horizontal line
-    # dat = [c[minLoc[0]] for c in img] # vertical line
-    dat = [min(k) for k in img] # horizontal bars
-    # dat = [min(k) for k in zip(*img)] # vertical bars
-    # dat = [list(k).index(min(k)) for k in img] # index
+    # dat = img[minLoc[1]][:]
+    
+    dat = [c[minLoc[0]] for c in img]
 
     print(minVal)
     print(len(dat))
@@ -70,8 +67,6 @@ def cutFromLeft(img,n):
 def cutFromRight(img,n):
     crop = img[:-n,:]
     return crop
-
-
 
 def save_image(filename, img):
     cv2.imwrite(filename+"proc.tif", img)
