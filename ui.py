@@ -120,6 +120,20 @@ class MainWin(QMainWindow):
 		self.right_cut_text_label.setText("Right Cut")
 		self.right_cut_text_label.resize(50,24)
 
+	def bottom_cut_text_field_changed(self):
+		ld.set_preproc_bottom_cut(int(self.bottom_cut_text_field.text()))
+
+	def top_cut_text_field_changed(self):
+		ld.set_preproc_top_cut(int(self.top_cut_text_field.text()))
+
+	def left_cut_text_field_changed(self):
+		ld.set_preproc_left_cut(int(self.left_cut_text_field.text()))
+
+	def right_cut_text_field_changed(self):
+		ld.set_preproc_right_cut(int(self.right_cut_text_field.text()))
+
+
+
 		
 
 	def edge_cut_changed(self):
