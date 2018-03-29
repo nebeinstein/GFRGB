@@ -12,12 +12,16 @@ def set_preproc_edge_cut(val):
 
 def set_preproc_bottom_cut(val):
     pp.bottom_cut = val
+    
 def set_preproc_top_cut(val):
     pp.top_cut = val
+    
 def set_preproc_left_cut(val):
     pp.left_cut = val
+    
 def set_preproc_right_cut(val):
     pp.right_cut = val
+    
 
 def process_image(filepath):
     """Processes a given image"""
