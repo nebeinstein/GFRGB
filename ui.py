@@ -23,6 +23,16 @@ class MainWin(QMainWindow):
 	edge_cut_text_field = None
 	edge_cut_label = None
 	blur_radius_text_field = None
+
+	left_cut_text_field = None
+	right_cut_text_field = None
+	top_cut_text_field = None
+	bottom_cut_text_field = None
+
+	bottom_cut_text_label = None
+	top_cut_text_label = None
+	left_cut_text_label = None
+	right_cut_text_label = None
 	
 	def __init__(self):
 		super().__init__()
@@ -81,6 +91,35 @@ class MainWin(QMainWindow):
 		self.edge_cut_label = QLabel(self)
 		self.edge_cut_label.setText("Edge Cut")
 		self.edge_cut_label.resize(50,24)
+		
+		self.bottom_cut_text_field = QLineEdit(self)
+		self.bottom_cut_text_field.resize(50,24)
+		self.bottom_cut_text_field.textChanged.connect(self.bottom_cut_text_field_changed)
+		self.bottom_cut_text_label = QLabel(self)
+		self.bottom_cut_text_label.setText("Bottom Cut")
+		self.bottom_cut_text_label.resize(50,24)
+
+		self.top_cut_text_field = QLineEdit(self)
+		self.top_cut_text_field.resize(50,24)
+		self.top_cut_text_field.textChanged.connect(self.top_cut_text_field_changed)
+		self.top_cut_text_label = QLabel(self)
+		self.top_cut_text_label.setText("Top Cut")
+		self.top_cut_text_label.resize(50,24)
+
+		self.left_cut_text_field = QLineEdit(self)
+		self.left_cut_text_field.resize(50,24)
+		self.left_cut_text_field.textChanged.connect(self.left_cut_text_field_changed)
+		self.left_cut_text_label = QLabel(self)
+		self.left_cut_text_label.setText("Left Cut")
+		self.left_cut_text_label.resize(50,24)
+
+		self.right_cut_text_field = QLineEdit(self)
+		self.right_cut_text_field.resize(50,24)
+		self.right_cut_text_field.textChanged.connect(self.right_cut_text_field_changed)
+		self.right_cut_text_label = QLabel(self)
+		self.right_cut_text_label.setText("Right Cut")
+		self.right_cut_text_label.resize(50,24)
+
 		
 
 	def edge_cut_changed(self):
