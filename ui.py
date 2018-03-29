@@ -97,28 +97,28 @@ class MainWin(QMainWindow):
 		self.bottom_cut_text_field.textChanged.connect(self.bottom_cut_text_field_changed)
 		self.bottom_cut_text_label = QLabel(self)
 		self.bottom_cut_text_label.setText("Bottom Cut")
-		self.bottom_cut_text_label.resize(50,24)
+		self.bottom_cut_text_label.resize(80,24)
 
 		self.top_cut_text_field = QLineEdit(self)
-		self.top_cut_text_field.resize(50,24)
+		self.top_cut_text_field.resize(80,24)
 		self.top_cut_text_field.textChanged.connect(self.top_cut_text_field_changed)
 		self.top_cut_text_label = QLabel(self)
 		self.top_cut_text_label.setText("Top Cut")
-		self.top_cut_text_label.resize(50,24)
+		self.top_cut_text_label.resize(80,24)
 
 		self.left_cut_text_field = QLineEdit(self)
-		self.left_cut_text_field.resize(50,24)
+		self.left_cut_text_field.resize(80,24)
 		self.left_cut_text_field.textChanged.connect(self.left_cut_text_field_changed)
 		self.left_cut_text_label = QLabel(self)
 		self.left_cut_text_label.setText("Left Cut")
-		self.left_cut_text_label.resize(50,24)
+		self.left_cut_text_label.resize(80,24)
 
 		self.right_cut_text_field = QLineEdit(self)
-		self.right_cut_text_field.resize(50,24)
+		self.right_cut_text_field.resize(80,24)
 		self.right_cut_text_field.textChanged.connect(self.right_cut_text_field_changed)
 		self.right_cut_text_label = QLabel(self)
 		self.right_cut_text_label.setText("Right Cut")
-		self.right_cut_text_label.resize(50,24)
+		self.right_cut_text_label.resize(80,24)
 
 	def bottom_cut_text_field_changed(self):
 		ld.set_preproc_bottom_cut(int(self.bottom_cut_text_field.text()))
@@ -131,10 +131,6 @@ class MainWin(QMainWindow):
 
 	def right_cut_text_field_changed(self):
 		ld.set_preproc_right_cut(int(self.right_cut_text_field.text()))
-
-
-
-		
 
 	def edge_cut_changed(self):
 		ld.set_preproc_edge_cut(int(self.edge_cut_text_field.text()))
@@ -152,13 +148,21 @@ class MainWin(QMainWindow):
 
 	def resizeEvent(self,event):
 		self.respond_to_resize()
-	
+
 	def respond_to_resize(self):
 		self.lis.setGeometry(0, 20, self.frameGeometry().width() // 5, self.frameGeometry().height() - 80)
 		self.button.move(self.frameGeometry().width() // 5, 850)
 		self.img.move(self.frameGeometry().width() // 5, 20)
 		self.edge_cut_text_field.move((self.frameGeometry().width() // 4) + 150, 850)
 		self.edge_cut_label.move(self.frameGeometry().width()//4 + 100 , 850)
+		self.bottom_cut_text_label.move(self.frameGeometry().width() // 4 + 350, 850)
+		self.bottom_cut_text_field.move(self.frameGeometry().width() // 4 + 350 + 80, 850)
+		self.top_cut_text_label.move(self.frameGeometry().width() // 4 + 550, 850)
+		self.top_cut_text_field.move(self.frameGeometry().width() // 4 + 550 + 80, 850)
+		self.left_cut_text_label.move(self.frameGeometry().width() // 4 + 750, 850)
+		self.left_cut_text_field.move(self.frameGeometry().width() // 4 + 750 + 80, 850)
+		self.right_cut_text_label.move(self.frameGeometry().width() // 4 + 950, 850)
+		self.right_cut_text_field.move(self.frameGeometry().width() // 4 + 950 + 80, 850)
 
 	def list_selection_changed(self):
 		if(self.lis.currentItem() == None):
