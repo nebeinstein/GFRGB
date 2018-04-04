@@ -63,17 +63,16 @@ class MainWin(QMainWindow):
 		self.img = QLabel(self)
 		self.img.resize(800,800)
 		self.img.move(200,20)
-		# self.lay.addWidget(self.img)
 		self.setCentralWidget(self.img)
 
 	def init_list_view(self):
-		self.items = QDockWidget("Files", self)
+		dock = QDockWidget("Files", self)
+		dock.setFeatures(dock.DockWidgetMovable)
 		self.lis = QListWidget(self)
 		self.lis.move(0, 20)
 		self.lis.currentItemChanged.connect(self.list_selection_changed)
-		# self.lay.addWidget(self.lis)
-		self.items.setWidget(self.lis)
-		self.addDockWidget(1,self.items)
+		dock.setWidget(self.lis)
+		self.addDockWidget(1,dock)
 
 	def init_file_menu(self):
 		exit_item = QAction('&Exit', self)
