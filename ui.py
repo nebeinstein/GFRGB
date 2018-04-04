@@ -11,6 +11,9 @@ from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QDockWidget
+
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
 import sys
@@ -49,25 +52,26 @@ class MainWin(QMainWindow):
 		self.init_file_menu()
 		self.init_list_view()
 		self.init_image_viewer()
-		self.init_text_fields()
-		self.button = QPushButton("Process Image", self)
-		self.button.setToolTip("This will process the given image and save it.")
-		self.button.move(200, 850)
-		self.button.clicked.connect(self.process_button_pressed)
+		self.init_manipulate_widget()
+		
 		self.show()
 
+	# TODO: Put this in another file
 	def init_image_viewer(self):
 		self.img = QLabel(self)
 		self.img.resize(800,800)
 		self.img.move(200,20)
-		self.lay.addWidget(self.img)
-
+		self.setCentralWidget(self.img)
+	# TODO: Put this in another file
 	def init_list_view(self):
-		self.lis=QListWidget(self)
+		dock = QDockWidget("Files", self)
+		dock.setFeatures(QDockWidget.DockWidgetMovable)
+		self.lis = QListWidget(self)
 		self.lis.move(0, 20)
 		self.lis.currentItemChanged.connect(self.list_selection_changed)
-		self.lay.addWidget(self.lis)
-
+		dock.setWidget(self.lis)
+		self.addDockWidget(1,dock)
+	# TODO: Put this in another file
 	def init_file_menu(self):
 		exit_item = QAction('&Exit', self)
 		exit_item.setShortcut('Ctrl+Q')
@@ -83,43 +87,55 @@ class MainWin(QMainWindow):
 		
 		file_menu.addAction(import_item)
 		file_menu.addAction(exit_item)
-
-	def init_text_fields(self):
-		self.edge_cut_text_field = QLineEdit(self)
-		self.edge_cut_text_field.resize(50,24)
-		# self.edge_cut_text_field.textChanged.connect(self.edge_cut_changed)
-		self.edge_cut_label = QLabel(self)
-		self.edge_cut_label.setText("Edge Cut")
-		self.edge_cut_label.resize(50,24)
+	# TODO: Put this in another file
+	def init_manipulate_widget(self):
+		dock = QDockWidget("Manipulation")
+		dock.setFeatures(QDockWidget.DockWidgetMovable)
+		panel = QWidget()
+		grid = QGridLayout()
 		
-		self.bottom_cut_text_field = QLineEdit(self)
-		self.bottom_cut_text_field.resize(50,24)
+		self.bottom_cut_text_field = QLineEdit()
 		self.bottom_cut_text_field.textChanged.connect(self.bottom_cut_text_field_changed)
-		self.bottom_cut_text_label = QLabel(self)
+		self.bottom_cut_text_label = QLabel()
 		self.bottom_cut_text_label.setText("Bottom Cut")
-		self.bottom_cut_text_label.resize(80,24)
 
-		self.top_cut_text_field = QLineEdit(self)
-		self.top_cut_text_field.resize(80,24)
+		self.top_cut_text_field = QLineEdit()
 		self.top_cut_text_field.textChanged.connect(self.top_cut_text_field_changed)
-		self.top_cut_text_label = QLabel(self)
+		self.top_cut_text_label = QLabel()
 		self.top_cut_text_label.setText("Top Cut")
-		self.top_cut_text_label.resize(80,24)
 
-		self.left_cut_text_field = QLineEdit(self)
-		self.left_cut_text_field.resize(80,24)
+		self.left_cut_text_field = QLineEdit()
 		self.left_cut_text_field.textChanged.connect(self.left_cut_text_field_changed)
-		self.left_cut_text_label = QLabel(self)
+		self.left_cut_text_label = QLabel()
 		self.left_cut_text_label.setText("Left Cut")
-		self.left_cut_text_label.resize(80,24)
 
-		self.right_cut_text_field = QLineEdit(self)
-		self.right_cut_text_field.resize(80,24)
+		self.right_cut_text_field = QLineEdit()
 		self.right_cut_text_field.textChanged.connect(self.right_cut_text_field_changed)
-		self.right_cut_text_label = QLabel(self)
+		self.right_cut_text_label = QLabel()
 		self.right_cut_text_label.setText("Right Cut")
-		self.right_cut_text_label.resize(80,24)
 
+		self.button = QPushButton("Process Image")
+		self.button.setToolTip("This will process the given image and save it.")
+		self.button.move(200, 850)
+		self.button.clicked.connect(self.process_button_pressed)
+
+		grid.addWidget(self.right_cut_text_field, 1, 1)
+		grid.addWidget(self.left_cut_text_field, 2, 1)
+		grid.addWidget(self.top_cut_text_field, 3, 1)
+		grid.addWidget(self.bottom_cut_text_field, 4, 1)
+
+		grid.addWidget(self.right_cut_text_label, 1, 0)
+		grid.addWidget(self.left_cut_text_label, 2, 0)
+		grid.addWidget(self.top_cut_text_label, 3, 0)
+		grid.addWidget(self.bottom_cut_text_label, 4, 0)
+
+		grid.addWidget(self.button, 5, 1)
+
+		panel.setLayout(grid)
+		dock.setWidget(panel)
+		self.addDockWidget(Qt.LeftDockWidgetArea, dock)
+
+	# TODO: These should go in a controller.
 	def bottom_cut_text_field_changed(self):
 		try:
 			ld.set_preproc_bottom_cut(int(self.bottom_cut_text_field.text()))
@@ -155,24 +171,6 @@ class MainWin(QMainWindow):
 	def show_import_folder_dialog(self):
 		options = QFileDialog.Options()
 		return QFileDialog.getExistingDirectory(self,"QFileDialog.getOpenFileName()", options=options)
-
-	def resizeEvent(self,event):
-		self.respond_to_resize()
-
-	def respond_to_resize(self):
-		self.lis.setGeometry(0, 20, self.frameGeometry().width() // 5, self.frameGeometry().height() - 80)
-		self.button.move(self.frameGeometry().width() // 5, 850)
-		self.img.move(self.frameGeometry().width() // 5, 20)
-		self.edge_cut_text_field.move((self.frameGeometry().width() // 4) + 150, 850)
-		self.edge_cut_label.move(self.frameGeometry().width()//4 + 100 , 850)
-		self.bottom_cut_text_label.move(self.frameGeometry().width() // 4 + 350, 850)
-		self.bottom_cut_text_field.move(self.frameGeometry().width() // 4 + 350 + 80, 850)
-		self.top_cut_text_label.move(self.frameGeometry().width() // 4 + 550, 850)
-		self.top_cut_text_field.move(self.frameGeometry().width() // 4 + 550 + 80, 850)
-		self.left_cut_text_label.move(self.frameGeometry().width() // 4 + 750, 850)
-		self.left_cut_text_field.move(self.frameGeometry().width() // 4 + 750 + 80, 850)
-		self.right_cut_text_label.move(self.frameGeometry().width() // 4 + 950, 850)
-		self.right_cut_text_field.move(self.frameGeometry().width() // 4 + 950 + 80, 850)
 
 	def list_selection_changed(self):
 		if(self.lis.currentItem() == None):

@@ -27,7 +27,8 @@ def circle_darkest(img):
     print(minLoc)
     # dat = img[minLoc[1]][:]
     
-    dat = [c[minLoc[0]] for c in img]
+    # dat = [c[minLoc[0]] for c in img]
+    dat = [min(k) for k in img] # horizontal bars
 
     print(minVal)
     print(len(dat))
