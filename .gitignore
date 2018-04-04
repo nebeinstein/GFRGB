@@ -2,6 +2,8 @@
 *.jpg
 *.zip
 *.csv
+.vscode
+data.csv
 __pycache__/*
 .project
 .pydevproject
