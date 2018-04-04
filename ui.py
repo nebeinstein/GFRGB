@@ -172,12 +172,6 @@ class MainWin(QMainWindow):
 		options = QFileDialog.Options()
 		return QFileDialog.getExistingDirectory(self,"QFileDialog.getOpenFileName()", options=options)
 
-	def resizeEvent(self,event):
-		self.respond_to_resize()
-
-	def respond_to_resize(self):
-		pass
-
 	def list_selection_changed(self):
 		if(self.lis.currentItem() == None):
 			return
