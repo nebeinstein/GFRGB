@@ -91,7 +91,6 @@ class MainWin(QMainWindow):
 		dock = QDockWidget("Manipulation")
 		dock.setFeatures(QDockWidget.DockWidgetMovable)
 		panel = QWidget()
-		
 		grid = QGridLayout()
 		
 		self.bottom_cut_text_field = QLineEdit()
@@ -118,8 +117,6 @@ class MainWin(QMainWindow):
 		self.button.setToolTip("This will process the given image and save it.")
 		self.button.move(200, 850)
 		self.button.clicked.connect(self.process_button_pressed)
-
-		
 
 		grid.addWidget(self.right_cut_text_field, 1, 1)
 		grid.addWidget(self.left_cut_text_field, 2, 1)
