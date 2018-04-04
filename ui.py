@@ -87,7 +87,7 @@ class MainWin(QMainWindow):
 	def init_text_fields(self):
 		self.edge_cut_text_field = QLineEdit(self)
 		self.edge_cut_text_field.resize(50,24)
-		self.edge_cut_text_field.textChanged.connect(self.edge_cut_changed)
+		# self.edge_cut_text_field.textChanged.connect(self.edge_cut_changed)
 		self.edge_cut_label = QLabel(self)
 		self.edge_cut_label.setText("Edge Cut")
 		self.edge_cut_label.resize(50,24)
@@ -121,20 +121,30 @@ class MainWin(QMainWindow):
 		self.right_cut_text_label.resize(80,24)
 
 	def bottom_cut_text_field_changed(self):
-		ld.set_preproc_bottom_cut(int(self.bottom_cut_text_field.text()))
-
+		try:
+			ld.set_preproc_bottom_cut(int(self.bottom_cut_text_field.text()))
+		except:
+			pass
 	def top_cut_text_field_changed(self):
-		ld.set_preproc_top_cut(int(self.top_cut_text_field.text()))
-
+		try:
+			ld.set_preproc_top_cut(int(self.top_cut_text_field.text()))
+		except:
+			pass
 	def left_cut_text_field_changed(self):
-		ld.set_preproc_left_cut(int(self.left_cut_text_field.text()))
-
+		try:
+			ld.set_preproc_left_cut(int(self.left_cut_text_field.text()))
+		except:
+			pass
 	def right_cut_text_field_changed(self):
-		ld.set_preproc_right_cut(int(self.right_cut_text_field.text()))
-
+		try:
+			ld.set_preproc_right_cut(int(self.right_cut_text_field.text()))
+		except:
+			pass
 	def edge_cut_changed(self):
-		ld.set_preproc_edge_cut(int(self.edge_cut_text_field.text()))
-
+		try:
+			ld.set_preproc_edge_cut(int(self.edge_cut_text_field.text()))
+		except:
+			pass
 	def import_action(self):
 		filepath = self.show_import_folder_dialog()
 		if(filepath == ''):
