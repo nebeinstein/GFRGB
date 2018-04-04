@@ -11,6 +11,9 @@ from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QDockWidget
+
+from PyQt5 import Qt
 from PyQt5.QtGui import QPixmap
 
 import sys
@@ -60,13 +63,17 @@ class MainWin(QMainWindow):
 		self.img = QLabel(self)
 		self.img.resize(800,800)
 		self.img.move(200,20)
-		self.lay.addWidget(self.img)
+		# self.lay.addWidget(self.img)
+		self.setCentralWidget(self.img)
 
 	def init_list_view(self):
-		self.lis=QListWidget(self)
+		self.items = QDockWidget("Files", self)
+		self.lis = QListWidget(self)
 		self.lis.move(0, 20)
 		self.lis.currentItemChanged.connect(self.list_selection_changed)
-		self.lay.addWidget(self.lis)
+		# self.lay.addWidget(self.lis)
+		self.items.setWidget(self.lis)
+		self.addDockWidget(1,self.items)
 
 	def init_file_menu(self):
 		exit_item = QAction('&Exit', self)
