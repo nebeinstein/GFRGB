@@ -56,12 +56,13 @@ class MainWin(QMainWindow):
 		
 		self.show()
 
+	# TODO: Put this in another file
 	def init_image_viewer(self):
 		self.img = QLabel(self)
 		self.img.resize(800,800)
 		self.img.move(200,20)
 		self.setCentralWidget(self.img)
-
+	# TODO: Put this in another file
 	def init_list_view(self):
 		dock = QDockWidget("Files", self)
 		dock.setFeatures(QDockWidget.DockWidgetMovable)
@@ -70,7 +71,7 @@ class MainWin(QMainWindow):
 		self.lis.currentItemChanged.connect(self.list_selection_changed)
 		dock.setWidget(self.lis)
 		self.addDockWidget(1,dock)
-
+	# TODO: Put this in another file
 	def init_file_menu(self):
 		exit_item = QAction('&Exit', self)
 		exit_item.setShortcut('Ctrl+Q')
@@ -86,7 +87,7 @@ class MainWin(QMainWindow):
 		
 		file_menu.addAction(import_item)
 		file_menu.addAction(exit_item)
-
+	# TODO: Put this in another file
 	def init_manipulate_widget(self):
 		dock = QDockWidget("Manipulation")
 		dock.setFeatures(QDockWidget.DockWidgetMovable)
@@ -134,6 +135,7 @@ class MainWin(QMainWindow):
 		dock.setWidget(panel)
 		self.addDockWidget(Qt.LeftDockWidgetArea, dock)
 
+	# TODO: These should go in a controller.
 	def bottom_cut_text_field_changed(self):
 		try:
 			ld.set_preproc_bottom_cut(int(self.bottom_cut_text_field.text()))
