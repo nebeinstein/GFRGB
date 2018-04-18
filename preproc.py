@@ -38,7 +38,7 @@ def circle_darkest(img):
     lowest = 0
     for eachList in img:
         eachList = list(eachList)
-        saveable += [[i, eachList.index(min(eachList)), min(eachList)]]
+        saveable += [[eachList.index(min(eachList)), i, min(eachList)]]
         if(saveable[lowest][2] > min(eachList)):
             lowest = i
         i += 1
