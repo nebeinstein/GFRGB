@@ -10,3 +10,5 @@ __pycache__/*
 *.tif
 *.pyc
 __pycache__/preproc.cpython-36.pyc
+build
+dist
