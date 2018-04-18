@@ -48,7 +48,8 @@ def circle_darkest(img):
         v = Vektor(eachitem[0], eachitem[1])
         eachitem.append(v.nicolesAngle(darkest, nicoles_radius))
     print(minVal)
-    plt.plot(dat)
+
+    plt.plot([k[3] for k in saveable], [k[2] for k in saveable])
     plt.ylabel('Greyscale')
     plt.xlabel('Distance in pixels')
     plt.show()
