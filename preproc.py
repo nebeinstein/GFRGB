@@ -48,7 +48,7 @@ def circle_darkest(img):
     i = 0
     fil.write(str(minLoc) + "\n")
     for eachpoint in saveable:
-        fil.write(str(eachpoint[0]) + "," + str(eachpoint[1]) + "," + str(eachpoint[2]) + "\n")
+        fil.write(str(eachpoint[1]) + "," + str(eachpoint[0]) + "," + str(eachpoint[2]) + "\n")
         i+=1
     fil.close()
     cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)
