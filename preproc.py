@@ -51,7 +51,7 @@ def circle_darkest(img):
 
     plt.plot([k[3] for k in saveable], [k[2] for k in saveable])
     plt.ylabel('Greyscale')
-    plt.xlabel('Distance in pixels')
+    plt.xlabel('Angle')
     plt.show()
     fil = open("data.csv", "w")
     i = 0
