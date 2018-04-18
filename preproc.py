@@ -1,12 +1,15 @@
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+from vektor import Vektor
 blur_radius = 15
 edge_cut = 30
 left_cut = 0
 right_cut = 0
 top_cut = 0
 bottom_cut = 0
+nicoles_radius = 1
+
 
 def load_image_as_grayscale(filepath):
     """load an image as grayscale at the specified location and return it."""
@@ -32,23 +35,29 @@ def circle_darkest(img):
     saveable = []
     # TODO: make this iterable loop instead of setting the var
     i = 0
+    lowest = 0
     for eachList in img:
         eachList = list(eachList)
-        saveable += [[i, eachList.index(min(eachList)), min(eachList)]]
+        saveable += [[eachList.index(min(eachList)), i, min(eachList)]]
+        if(saveable[lowest][2] > min(eachList)):
+            lowest = i
         i += 1
     i = 0
+    darkest = Vektor(saveable[lowest][0], saveable[lowest][1])
+    for eachitem in saveable:
+        v = Vektor(eachitem[0], eachitem[1])
+        eachitem.append(v.nicolesAngle(darkest, nicoles_radius))
     print(minVal)
-    print(len(dat))
-    print(len(img))
-    plt.plot(dat)
+
+    plt.plot([k[3] for k in saveable], [k[2] for k in saveable])
     plt.ylabel('Greyscale')
-    plt.xlabel('Distance in pixels')
+    plt.xlabel('Angle')
     plt.show()
     fil = open("data.csv", "w")
     i = 0
     fil.write(str(minLoc) + "\n")
     for eachpoint in saveable:
-        fil.write(str(eachpoint[1]) + "," + str(eachpoint[0]) + "," + str(eachpoint[2]) + "\n")
+        fil.write(str(eachpoint)[1:-1] + "\n")
         i+=1
     fil.close()
     cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)

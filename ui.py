@@ -31,12 +31,14 @@ class MainWin(QMainWindow):
 	right_cut_text_field = None
 	top_cut_text_field = None
 	bottom_cut_text_field = None
+	nicoles_radius_text_field = None
 
 	bottom_cut_text_label = None
 	top_cut_text_label = None
 	left_cut_text_label = None
 	right_cut_text_label = None
-	
+	nicoles_radius_text_label = None
+
 	def __init__(self):
 		super().__init__()
 		self.init_ui()
@@ -62,6 +64,7 @@ class MainWin(QMainWindow):
 		self.img.resize(800,800)
 		self.img.move(200,20)
 		self.setCentralWidget(self.img)
+
 	# TODO: Put this in another file
 	def init_list_view(self):
 		dock = QDockWidget("Files", self)
@@ -71,6 +74,7 @@ class MainWin(QMainWindow):
 		self.lis.currentItemChanged.connect(self.list_selection_changed)
 		dock.setWidget(self.lis)
 		self.addDockWidget(1,dock)
+
 	# TODO: Put this in another file
 	def init_file_menu(self):
 		exit_item = QAction('&Exit', self)
@@ -114,6 +118,13 @@ class MainWin(QMainWindow):
 		self.right_cut_text_label = QLabel()
 		self.right_cut_text_label.setText("Right Cut")
 
+		self.nicoles_radius_text_field = QLineEdit()
+		self.nicoles_radius_text_field.textChanged.connect(self.nicoles_radius_text_field_changed)
+		self.nicoles_radius_text_label = QLabel()
+		self.nicoles_radius_text_label.setText("Nicole's Radius (cm)")
+
+
+
 		self.button = QPushButton("Process Image")
 		self.button.setToolTip("This will process the given image and save it.")
 		self.button.move(200, 850)
@@ -124,12 +135,16 @@ class MainWin(QMainWindow):
 		grid.addWidget(self.top_cut_text_field, 3, 1)
 		grid.addWidget(self.bottom_cut_text_field, 4, 1)
 
+		grid.addWidget(self.nicoles_radius_text_field, 5, 1)
+
 		grid.addWidget(self.right_cut_text_label, 1, 0)
 		grid.addWidget(self.left_cut_text_label, 2, 0)
 		grid.addWidget(self.top_cut_text_label, 3, 0)
 		grid.addWidget(self.bottom_cut_text_label, 4, 0)
 
-		grid.addWidget(self.button, 5, 1)
+		grid.addWidget(self.nicoles_radius_text_label, 5, 0)
+
+		grid.addWidget(self.button, 6, 1)
 
 		panel.setLayout(grid)
 		dock.setWidget(panel)
@@ -156,11 +171,13 @@ class MainWin(QMainWindow):
 			ld.set_preproc_right_cut(int(self.right_cut_text_field.text()))
 		except:
 			pass
-	def edge_cut_changed(self):
+	
+	def nicoles_radius_text_field_changed(self):
 		try:
-			ld.set_preproc_edge_cut(int(self.edge_cut_text_field.text()))
+			ld.set_preproc_nicoles_radius(int(self.nicoles_radius_text_field.text()))
 		except:
 			pass
+
 	def import_action(self):
 		filepath = self.show_import_folder_dialog()
 		if(filepath == ''):
