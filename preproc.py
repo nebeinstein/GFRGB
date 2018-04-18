@@ -29,7 +29,14 @@ def circle_darkest(img):
     
     # dat = [c[minLoc[0]] for c in img]
     dat = [min(k) for k in img] # horizontal bars
-
+    saveable = []
+    # TODO: make this iterable loop instead of setting the var
+    i = 0
+    for eachList in img:
+        eachList = list(eachList)
+        saveable += [[i, eachList.index(min(eachList)), min(eachList)]]
+        i += 1
+    i = 0
     print(minVal)
     print(len(dat))
     print(len(img))
@@ -40,8 +47,8 @@ def circle_darkest(img):
     fil = open("data.csv", "w")
     i = 0
     fil.write(str(minLoc) + "\n")
-    for eachpoint in dat:
-        fil.write(str(i) + "," + str(eachpoint) + "\n")
+    for eachpoint in saveable:
+        fil.write(str(eachpoint[1]) + "," + str(eachpoint[0]) + "," + str(eachpoint[2]) + "\n")
         i+=1
     fil.close()
     cv2.circle(img, minLoc, 3 * radius, (255, 0, 0), 2)
