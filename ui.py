@@ -38,6 +38,7 @@ class MainWin(QMainWindow):
 	left_cut_text_label = None
 	right_cut_text_label = None
 	nicoles_radius_text_label = None
+	blur_radius_text_label = None
 
 	def __init__(self):
 		super().__init__()
@@ -91,6 +92,7 @@ class MainWin(QMainWindow):
 		
 		file_menu.addAction(import_item)
 		file_menu.addAction(exit_item)
+
 	# TODO: Put this in another file
 	def init_manipulate_widget(self):
 		dock = QDockWidget("Manipulation")
@@ -118,10 +120,15 @@ class MainWin(QMainWindow):
 		self.right_cut_text_label = QLabel()
 		self.right_cut_text_label.setText("Right Cut")
 
+		self.blur_radius_text_field = QLineEdit()
+		self.blur_radius_text_field.textChanged.connect(self.blur_radius_text_field_changed)
+		self.blur_radius_text_label = QLabel()
+		self.blur_radius_text_label.setText("Blur Size")
+
 		self.nicoles_radius_text_field = QLineEdit()
 		self.nicoles_radius_text_field.textChanged.connect(self.nicoles_radius_text_field_changed)
 		self.nicoles_radius_text_label = QLabel()
-		self.nicoles_radius_text_label.setText("Nicole's Radius (cm)")
+		self.nicoles_radius_text_label.setText("Radius (cm)")
 
 
 
@@ -136,6 +143,7 @@ class MainWin(QMainWindow):
 		grid.addWidget(self.bottom_cut_text_field, 4, 1)
 
 		grid.addWidget(self.nicoles_radius_text_field, 5, 1)
+		grid.addWidget(self.blur_radius_text_field, 6, 1)
 
 		grid.addWidget(self.right_cut_text_label, 1, 0)
 		grid.addWidget(self.left_cut_text_label, 2, 0)
@@ -143,8 +151,9 @@ class MainWin(QMainWindow):
 		grid.addWidget(self.bottom_cut_text_label, 4, 0)
 
 		grid.addWidget(self.nicoles_radius_text_label, 5, 0)
+		grid.addWidget(self.blur_radius_text_label, 6, 0)
 
-		grid.addWidget(self.button, 6, 1)
+		grid.addWidget(self.button, 7, 1)
 
 		panel.setLayout(grid)
 		dock.setWidget(panel)
@@ -169,6 +178,11 @@ class MainWin(QMainWindow):
 	def right_cut_text_field_changed(self):
 		try:
 			ld.set_preproc_right_cut(int(self.right_cut_text_field.text()))
+		except:
+			pass
+	def blur_radius_text_field_changed(self):
+		try:
+			ld.set_preproc_blur_radius(int(self.blur_radius_text_field.text()))
 		except:
 			pass
 	

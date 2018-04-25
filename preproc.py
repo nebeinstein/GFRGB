@@ -71,7 +71,7 @@ def autocrop_edges(img):
     contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnt = contours[0]
     x,y,w,h = cv2.boundingRect(cnt)
-    crop = img[y + top_cut: y + h - bottom_cut, x + left_cut : x + w - right_cut]
+    crop = img[y + top_cut : y + h - bottom_cut, x + left_cut : x + w - right_cut]
     return crop
 
 def cutFromTop(img,n):
