@@ -26,6 +26,9 @@ def set_preproc_left_cut(val):
 def set_preproc_right_cut(val):
     pp.right_cut = val
     
+def set_preproc_blur_radius(val):
+    pp.blur_radius = val
+
 def process_image(filepath):
     """Processes a given image"""
     img = pp.load_image_as_grayscale(filepath)
