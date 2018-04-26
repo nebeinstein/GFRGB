@@ -50,7 +50,7 @@ class MainWin(QMainWindow):
 		self.statusBar().showMessage('Ready')
 		self.setGeometry(100, 100, 900, 900)
 		self.setMinimumSize(500, 500)
-		self.setWindowTitle('Gluten Free Radioactive Green Beans')
+		self.setWindowTitle('GFRGB')
 
 		self.init_file_menu()
 		self.init_list_view()
