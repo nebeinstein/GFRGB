@@ -67,10 +67,10 @@ def autocrop_edges(img):
     im8 = (img/256).astype('uint8')
     """Crops the black edges of the image"""
     im8 = (255 - im8)
-    _,thresh = cv2.threshold(im8, 80, 150, cv2.THRESH_BINARY)
-    contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (_,thresh) = cv2.threshold(im8, 80, 150, cv2.THRESH_BINARY)
+    (contours,high) = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnt = contours[0]
-    x,y,w,h = cv2.boundingRect(cnt)
+    (x,y,w,h) = cv2.boundingRect(cnt)
     crop = img[y + top_cut : y + h - bottom_cut, x + left_cut : x + w - right_cut]
     return crop
 
